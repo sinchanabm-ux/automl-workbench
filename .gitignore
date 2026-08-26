@@ -1,2 +1,5 @@
 #Python virtual environment
 .venv/
+
+#uploads except gitkeep
+!uploads/.gitkeep
