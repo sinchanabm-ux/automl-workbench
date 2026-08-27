@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Select target</title>
+    </head>
+    <body>
+        <h1>Select the target variable from the dataset columns</h1>
+        #this form needs to be sent(POST) to preprocessing
+        <form action = "/preprocess" method = 'post'>
+            #creating a dropdown
+            <select name = "target_column">
+                {% for col in columns %}
+                    <option value="{{ col }}"> {{ col }}</option>
+                {% endfor %}
+            </select>
+            <button type = "submit">Confirm Target</button>
+        </form>
+    </body>
+</html>
