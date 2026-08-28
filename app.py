@@ -18,7 +18,15 @@ def upload():
     #converting CSV into DataFrame to obtain columns
     df = pd.read_csv(filepath)
     columns = df.columns.to_list()
-    return render_template('select_target.html', columns=columns)
+    return render_template('select_target.html', columns=columns, filename = file.filename)
+
+@app.route('/preprocess', methods = ['POST'])
+def preprocess():
+    target_column = request.form['target_column']
+    filename = request.form['filename']
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    df = pd.read_csv(filepath)
+    return f"Target Column : {target_column} \n Shape : {df.shape}"
 
 if __name__ == '__main__':
     app.run(debug = True)

@@ -5,9 +5,11 @@
     </head>
     <body>
         <h1>Select the target variable from the dataset columns</h1>
-        #this form needs to be sent(POST) to preprocessing
+        <!-- this form needs to be sent(POST) to preprocessing -->
         <form action = "/preprocess" method = 'post'>
-            #creating a dropdown
+            <!-- storing filename in a hidden input variable to be passed to /preprocess -->
+            <input type = 'hidden' name = "filename" value = {{filename}}>
+            <!-- creating a dropdown -->
             <select name = "target_column">
                 {% for col in columns %}
                     <option value="{{ col }}"> {{ col }}</option>
