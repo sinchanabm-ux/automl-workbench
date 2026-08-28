@@ -2,4 +2,5 @@
 .venv/
 
 #uploads except gitkeep
+uploads/*
 !uploads/.gitkeep
