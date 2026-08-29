@@ -32,6 +32,12 @@ def preprocess():
     X = df.drop(columns=[target_column])
     y = df[target_column]
 
+    #Detection Logic(classification / regression)
+    if y.dtype == 'object' or y.nunique() <= 10:
+        problem_type  = "classification"
+    else:
+        problem_type = "regression"
+
     #checking for columns with more than 80% of missing values and dropping them
     high_missing = [] 
     for col in X.columns: 
@@ -73,7 +79,7 @@ def preprocess():
         scaler = StandardScaler()
         X[num] = scaler.fit_transform(X[num])
 
-    return X.head().to_html()
+    return problem_type
 
 if __name__ == '__main__':
     app.run(debug = True)
