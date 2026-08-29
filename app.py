@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request
 import os
 import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
+from preprocessing import preprocess_data
 from training import train_models
 
 app = Flask(__name__)
@@ -29,59 +28,11 @@ def preprocess():
     filename = request.form['filename']
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     df = pd.read_csv(filepath)
-
-    #separate target column
-    X = df.drop(columns=[target_column])
-    y = df[target_column]
-
-    #Detection Logic(classification / regression)
-    if y.dtype == 'object' or y.nunique() <= 10:
-        problem_type  = "classification"
-    else:
-        problem_type = "regression"
-
-    #checking for columns with more than 80% of missing values and dropping them
-    high_missing = [] 
-    for col in X.columns: 
-        ratio_miss = X[col].isnull().sum()/len(X)
-        if ratio_miss >= 0.8:
-            high_missing.append(col)
-    X = X.drop(columns = high_missing)
-    #if all the columns in the dataset had more than 80% missing values
-    if X.shape[1] == 0:
-        return "Not enough usable dataset remains after cleaning as too many columns had excessive missing values"
-
-    #separate numerical and categorical columns into two lists
-    num = X.select_dtypes(include='number').columns.to_list()
-    obj = X.select_dtypes(include= ['object', 'str']).columns.to_list()
-
-    #checking for ID columns which are to be dropped as encoding is not needed for columns with completely unique values
-    ID = []
-    for col in obj:
-        ratio_ID = X[col].nunique()/len(X)
-        if ratio_ID >= 0.9:
-            ID.append(col)
-    X = X.drop(columns = ID)
-    for col in ID:
-        obj.remove(col)
+    #spliting the data into training data and testing data by 80:20
+    X_train, X_test, y_train, y_test, problem_type, error_message = preprocess_data(df, target_column)
+    if error_message:
+        return error_message 
     
-    #Step-1 of preprocessing : Handle missing values, median for numerical data, mode for categorical data
-    for col in num:
-        median = X[col].median()
-        X[col] = X[col].fillna(median)
-    for col in obj:
-        mode = X[col].mode()[0]
-        X[col] = X[col].fillna(mode)
-
-    #Step-2 of preprocessing : Encoding categorical data 
-    X = pd.get_dummies(X, columns= obj)
-
-    #Step-3 of preprocessing : Scaling numerical columns
-    if num: 
-        scaler = StandardScaler()
-        X[num] = scaler.fit_transform(X[num])
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2, random_state=42)
     results = train_models(X_train, X_test, y_train, y_test, problem_type)
 
     return results
