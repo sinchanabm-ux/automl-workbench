@@ -4,3 +4,7 @@
 #uploads except gitkeep
 uploads/*
 !uploads/.gitkeep
+
+#pycache
+__pycache__/
+*.pyc
