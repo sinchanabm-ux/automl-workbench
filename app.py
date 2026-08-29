@@ -32,6 +32,17 @@ def preprocess():
     X = df.drop(columns=[target_column])
     y = df[target_column]
 
+    #checking for columns with more than 80% of missing values and dropping them
+    high_missing = [] 
+    for col in X.columns: 
+        ratio_miss = X[col].isnull().sum()/len(X)
+        if ratio_miss >= 0.8:
+            high_missing.append(col)
+    X = X.drop(columns = high_missing)
+    #if all the columns in the dataset had more than 80% missing values
+    if X.shape[1] == 0:
+        return "Not enough usable dataset remains after cleaning as too many columns had excessive missing values"
+
     #separate numerical and categorical columns into two lists
     num = X.select_dtypes(include='number').columns.to_list()
     obj = X.select_dtypes(include= ['object', 'str']).columns.to_list()
@@ -39,13 +50,13 @@ def preprocess():
     #checking for ID columns which are to be dropped as encoding is not needed for columns with completely unique values
     ID = []
     for col in obj:
-        ratio = X[col].nunique()/len(X)
-        if ratio > 0.9:
+        ratio_ID = X[col].nunique()/len(X)
+        if ratio_ID >= 0.9:
             ID.append(col)
     X = X.drop(columns = ID)
     for col in ID:
         obj.remove(col)
-
+    
     #Step-1 of preprocessing : Handle missing values, median for numerical data, mode for categorical data
     for col in num:
         median = X[col].median()
