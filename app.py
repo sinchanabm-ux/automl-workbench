@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import os
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
+from sklearn.model_selection import train_test_split
+from training import train_models
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -79,7 +81,10 @@ def preprocess():
         scaler = StandardScaler()
         X[num] = scaler.fit_transform(X[num])
 
-    return problem_type
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2, random_state=42)
+    results = train_models(X_train, X_test, y_train, y_test, problem_type)
+
+    return results
 
 if __name__ == '__main__':
     app.run(debug = True)
