@@ -1,0 +1,71 @@
+/* Colour palette & fonts for every page */
+:root {
+    --color-background: #F5F1E8;
+    --color-card: #FFFFFF;
+    --color-text: #2E2A22;
+    --color-accent: #5C6B4A;
+    --color-accent-dark: #46523A;
+    --color-border: #E2DDD0;
+
+    --font-heading: "Playfair Display", Georgia, serif;
+    --font-body: "Inter", "Work Sans", Arial, sans-serif;
+
+}
+
+/* Basic reset */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+}
+
+/* Shared Layout */
+header {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+main {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--color-accent-dark);
+    font-size: 0.9rem;
+}
+
+/* Button style */
+button { 
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 0.7rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color-accent-dark);
+}
+
+button:focus-visible {
+    outline: 3px solid var(--color-accent-dark);
+    outline-offset: 2px;
+}
