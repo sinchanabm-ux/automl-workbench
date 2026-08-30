@@ -2,7 +2,7 @@
 {% block content %}
 <h2> Upload your file </h2>
     <form action="/uploads/" method="post" enctype="multipart/form-data">
-        <input type="file" name = "csv_file">
+        <input type="file" name="csv_file" required>
         <button type = "submit"> Upload </button>
     </form>
 {% endblock %} 

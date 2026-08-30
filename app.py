@@ -14,9 +14,11 @@ app.config['UPLOAD_FOLDER'] = 'uploads'
 def index():
     return render_template('index.html')
 
-@app.route('/uploads/', methods = ['POST'] )
+@app.route('/uploads/', methods=['POST'])
 def upload():
     file = request.files['csv_file']
+    if file.filename == '':
+        return "Please select a file before uploading."
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(filepath)
     #converting CSV into DataFrame to obtain columns
