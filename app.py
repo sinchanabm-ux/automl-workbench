@@ -37,11 +37,12 @@ def preprocess():
         return error_message 
     
     results = train_models(X_train, X_test, y_train, y_test, problem_type)
+    best_model = max(results, key = results.get)
 
     for model_name, score in results.items():
         log_run(filename, target_column, problem_type, model_name, score)
 
-    return results
+    return render_template('results.html', results = results, best_model = best_model, filename = filename, target_column = target_column, problem_type = problem_type)
 
 if __name__ == '__main__':
     app.run(debug = True)
