@@ -8,3 +8,6 @@ uploads/*
 #pycache
 __pycache__/
 *.pyc
+
+# database logs
+*.db
