@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+{% endblock %}
 {% block content %}
 <h2> Upload your file </h2>
     <form action="/uploads/" method="post" enctype="multipart/form-data">

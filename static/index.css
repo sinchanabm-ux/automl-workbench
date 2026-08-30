@@ -1,0 +1,20 @@
+input[type="file"] {
+    font-family: var(--font-body);
+    color: var(--color-text);
+}
+
+input[type="file"]::file-selector-button {
+    background-color: var(--color-accent);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background-color: var(--color-accent-dark);
+}
