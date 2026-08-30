@@ -11,3 +11,6 @@ __pycache__/
 
 # database logs
 *.db
+
+# verification of database
+check_db.py

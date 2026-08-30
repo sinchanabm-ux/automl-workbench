@@ -3,8 +3,10 @@ import os
 import pandas as pd
 from preprocessing import preprocess_data
 from training import train_models
+from database import create_table, log_run
 
 app = Flask(__name__)
+create_table()
 app.config['UPLOAD_FOLDER'] = 'uploads'
 
 # home page
@@ -28,12 +30,16 @@ def preprocess():
     filename = request.form['filename']
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     df = pd.read_csv(filepath)
+
     #spliting the data into training data and testing data by 80:20
     X_train, X_test, y_train, y_test, problem_type, error_message = preprocess_data(df, target_column)
     if error_message:
         return error_message 
     
     results = train_models(X_train, X_test, y_train, y_test, problem_type)
+
+    for model_name, score in results.items():
+        log_run(filename, target_column, problem_type, model_name, score)
 
     return results
 
