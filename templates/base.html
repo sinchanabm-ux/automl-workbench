@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale-1.0">
+        <title>{% block title %} AutoML WorkBench {% endblock %}</title>
+        <link rel="stylesheet" href="{{url_for('static', filename = 'base.css') }}">
+        {% block extra_css %}{% endblock %} 
+    </head>
+    <body>
+        <header>
+            <h1>AutoML WorkBench</h1>
+        </header>
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p>AutoML WorkBench by Sinchana</p>
+        </footer>
+    </body>
+</html>
