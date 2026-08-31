@@ -1,11 +1,23 @@
 {% extends "base.html" %}
+{% block title %}Upload Dataset{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 {% endblock %}
 {% block content %}
-<h2> Upload your file </h2>
-    <form action="/uploads/" method="post" enctype="multipart/form-data">
-        <input type="file" name="csv_file" required>
-        <button type = "submit"> Upload </button>
-    </form>
-{% endblock %} 
+<section class="hero" aria-label="Upload dataset">
+    <div class="hero-content">
+        <div class="hero-form">
+            <h2>Upload your file</h2>
+            <form action="/uploads/" method="post" enctype="multipart/form-data">
+                <input type="file" name="csv_file" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        <div class="hero-description">
+            <p>
+                <strong>AutoML Workbench</strong> takes the repetitive parts of a data scientist's workflow off your hands. Upload any CSV. It automatically detects whether you're solving a classification or regression problem. It performs data preprocessing, model training and compares multiple models so you can focus on interpreting results instead of writing boilerplate.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}

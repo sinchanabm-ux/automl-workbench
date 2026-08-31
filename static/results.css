@@ -11,9 +11,9 @@
     border: 1px solid var(--color-border);
     border-radius: 12px;
     padding: 1.25rem 1.5rem;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 120px;
     align-items: center;
-    justify-content: space-between;
     gap: 1rem;
 }
 
@@ -39,4 +39,8 @@
     font-weight: 600;
     padding: 0.3rem 0.8rem;
     border-radius: 999px;
+}
+
+.best-label--hidden {
+    visibility: hidden;
 }

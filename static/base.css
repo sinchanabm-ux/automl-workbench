@@ -1,4 +1,4 @@
-/* Colour palette & fonts for every page */
+/* ---------- Color palette & fonts, available to every page ---------- */
 :root {
     --color-background: #F5F1E8;
     --color-card: #FFFFFF;
@@ -9,16 +9,22 @@
 
     --font-heading: "Playfair Display", Georgia, serif;
     --font-body: "Inter", "Work Sans", Arial, sans-serif;
-
 }
 
-/* Basic reset */
+/* ---------- Basic reset ---------- */
 * {
     box-sizing: border-box;
 }
 
+html {
+    overflow-x: hidden;
+}
+
 body {
     margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: var(--font-body);
@@ -30,7 +36,7 @@ h1, h2, h3 {
     font-weight: 600;
 }
 
-/* Shared Layout */
+/* ---------- Shared layout ---------- */
 header {
     padding: 1.5rem 2rem;
     border-bottom: 1px solid var(--color-border);
@@ -40,6 +46,8 @@ main {
     max-width: 700px;
     margin: 0 auto;
     padding: 2rem;
+    flex: 1;
+    width: 100%;
 }
 
 footer {
@@ -49,8 +57,8 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Button style */
-button { 
+/* ---------- Shared button style ---------- */
+button {
     background-color: var(--color-accent);
     color: white;
     border: none;

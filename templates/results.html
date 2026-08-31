@@ -1,29 +1,31 @@
 {% extends "base.html" %}
 
-{% block title %} Results {% endblock %}
+{% block title %}Results{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}">
 {% endblock %}
 
 {% block content %}
-    <h2> Your Results </h2>
+
+    <h2>Your Results</h2>
 
     <section aria-label="Run summary">
         <p><strong>File:</strong> {{ filename }}</p>
-        <p><strong>Target Column:</strong> {{ target_column }}</p>
+        <p><strong>Target column:</strong> {{ target_column }}</p>
         <p><strong>Problem type:</strong> {{ problem_type }}</p>
     </section>
 
-    <ul class = "model-list">
+    <ul class="model-list">
         {% for model_name, score in results.items() %}
             <li class="model-card {% if model_name == best_model %}model-card--best{% endif %}">
                 <span class="model-name">{{ model_name }}</span>
                 <span class="model-score">{{ "%.3f"|format(score) }}</span>
-                {% if model_name == best_model %}
-                    <span class="best-label">Best Result</span>
-                {% endif %}
+                <span class="best-label {% if model_name != best_model %}best-label--hidden{% endif %}">
+                    {% if model_name == best_model %}Best Result{% endif %}
+                </span>
             </li>
         {% endfor %}
     </ul>
+
 {% endblock %}
