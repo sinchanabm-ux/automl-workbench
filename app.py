@@ -34,11 +34,11 @@ def preprocess():
     df = pd.read_csv(filepath)
 
     #spliting the data into training data and testing data by 80:20
-    X_train, X_test, y_train, y_test, problem_type, error_message = preprocess_data(df, target_column)
+    X, y, problem_type, error_message = preprocess_data(df, target_column)
     if error_message:
         return error_message 
     
-    results = train_models(X_train, X_test, y_train, y_test, problem_type)
+    results = train_models(X, y, problem_type)
     best_model = max(results, key = results.get)
 
     for model_name, score in results.items():

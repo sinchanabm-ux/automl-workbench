@@ -1,6 +1,5 @@
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
 
 def preprocess_data(df, target_column):
     #separate target column
@@ -22,7 +21,7 @@ def preprocess_data(df, target_column):
     X = X.drop(columns = high_missing)
     #if all the columns in the dataset had more than 80% missing values
     if X.shape[1] == 0:
-        return None, None, None, None, None, "Not enough usable dataset remains after cleaning as too many columns had excessive missing values"
+        return None, None, None, "Not enough usable dataset remains after cleaning as too many columns had excessive missing values"
 
     #separate numerical and categorical columns into two lists
     num = X.select_dtypes(include='number').columns.to_list()
@@ -54,6 +53,5 @@ def preprocess_data(df, target_column):
         scaler = StandardScaler()
         X[num] = scaler.fit_transform(X[num])
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2, random_state=42)
 
-    return X_train, X_test, y_train, y_test, problem_type, None
+    return X, y, problem_type, None
