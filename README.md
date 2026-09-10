@@ -31,6 +31,7 @@ Built as a solo project to go deeper than a single "train one model on one datas
 5. **Two models are trained and compared**, chosen automatically based on the detected problem type:
    - Classification → Logistic Regression + Random Forest Classifier
    - Regression → Linear Regression + Random Forest Regressor
+   - Cross validation of 5 fold is used to select the best model (replacing train_test_split())
 6. **Results are logged** to a SQLite database (one row per model per run) and displayed on a styled, accessible results page, with the best-performing model clearly labeled
 
 ## Tech stack
