@@ -44,3 +44,7 @@
 .best-label--hidden {
     visibility: hidden;
 }
+
+.summary p{
+    color: white;
+}

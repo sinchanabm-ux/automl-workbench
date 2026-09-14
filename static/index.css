@@ -1,6 +1,4 @@
 .hero {
-    background-color: var(--color-card);
-    border-bottom: 1px solid var(--color-border);
     display: flex;
     align-items: center;
     padding: 3rem 2rem;
@@ -29,12 +27,13 @@
 .hero-description {
     flex: 1 1 300px;
     font-size: 1.05rem;
-    color: var(--color-accent-dark);
+    color: var(--color-text);
+    margin-right: auto;
 }
 
 input[type="file"] {
     font-family: var(--font-body);
-    color: var(--color-text);
+    color: white;
 }
 
 input[type="file"]::file-selector-button {
@@ -51,4 +50,14 @@ input[type="file"]::file-selector-button {
 
 input[type="file"]::file-selector-button:hover {
     background-color: var(--color-accent-dark);
+}
+
+.hero-content, .hero-content h1, .hero-content h2 {
+    color: white;
+}
+
+.hero-form h2,
+.hero-description,
+.hero-description p {
+    color: white;
 }
