@@ -18,7 +18,7 @@ def train_models(X, y, problem_type) :
         results['Logistic Regression'] = lr_mean_score
 
         # Random Forest
-        rf = RandomForestClassifier()
+        rf = RandomForestClassifier(n_estimators=50)
         rf_scores = cross_val_score(rf, X, y, cv=5)
         rf_mean_score = rf_scores.mean()
         rf.fit(X, y)
@@ -33,7 +33,7 @@ def train_models(X, y, problem_type) :
         results['Linear Regression'] = li_mean_score
 
         # Random Forest Regressor
-        rf = RandomForestRegressor()
+        rf = RandomForestRegressor(n_estimators=50)
         rf_scores = cross_val_score(rf, X, y, cv=5)
         rf_mean_score = rf_scores.mean()
         rf.fit(X, y)
