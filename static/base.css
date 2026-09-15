@@ -18,7 +18,7 @@ html {
 }
 
 body {
-    margin: 0;
+    margin: 0 auto;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -77,4 +77,14 @@ button:hover {
 button:focus-visible {
     outline: 3px solid var(--color-accent-dark);
     outline-offset: 2px;
+}
+
+a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+a:hover {
+    text-decoration: dashed;
+    color: lightblue;
 }
