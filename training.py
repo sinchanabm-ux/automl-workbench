@@ -12,14 +12,14 @@ def train_models(X, y, problem_type) :
     if problem_type == "classification":
         # Logistic Regression
         lr = LogisticRegression()
-        lr_scores = cross_val_score(lr, X, y, cv=5) # 5 folds
+        lr_scores = cross_val_score(lr, X, y, cv=3) # 5 folds
         lr_mean_score = lr_scores.mean()
         lr.fit(X, y)
         results['Logistic Regression'] = lr_mean_score
 
         # Random Forest
         rf = RandomForestClassifier(n_estimators=50)
-        rf_scores = cross_val_score(rf, X, y, cv=5)
+        rf_scores = cross_val_score(rf, X, y, cv=3)
         rf_mean_score = rf_scores.mean()
         rf.fit(X, y)
         results['Random Forest'] = rf_mean_score
@@ -27,14 +27,14 @@ def train_models(X, y, problem_type) :
     else:
         # Linear Regression
         li = LinearRegression()
-        li_scores = cross_val_score(li, X, y, cv=5)
+        li_scores = cross_val_score(li, X, y, cv=3)
         li_mean_score = li_scores.mean()
         li.fit(X, y)
         results['Linear Regression'] = li_mean_score
 
         # Random Forest Regressor
         rf = RandomForestRegressor(n_estimators=50)
-        rf_scores = cross_val_score(rf, X, y, cv=5)
+        rf_scores = cross_val_score(rf, X, y, cv=3)
         rf_mean_score = rf_scores.mean()
         rf.fit(X, y)
         results['Random Forest'] = rf_mean_score
