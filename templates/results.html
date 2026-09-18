@@ -22,7 +22,7 @@
                 <span class="model-name">{{ model_name }}</span>
                 <span class="model-score">{{ "%.3f"|format(score) }}</span>
                 <span class="best-label {% if model_name != best_model %}best-label--hidden{% endif %}">
-                    {% if model_name == best_model %}Best Result{% endif %}
+                    {% if model_name == best_model %}Best Model{% endif %}
                 </span>
             </li>
         {% endfor %}

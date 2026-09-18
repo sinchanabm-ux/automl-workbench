@@ -19,3 +19,13 @@ select:focus-visible {
     outline: 3px solid var(--color-accent-dark);
     outline-offset: 2px;
 }
+
+main h2,
+main form {
+    width: 850px;
+    max-width: 100%;
+}
+
+main h2 {
+    margin-bottom: 1.2rem;
+}
