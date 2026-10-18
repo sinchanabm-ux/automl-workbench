@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% set active_page = 'ml' %}
 {% block title %}Results{% endblock %}
 
 {% block extra_css %}
@@ -8,13 +8,22 @@
 
 {% block content %}
 
-    <h2>Your Results</h2>
+    <h1>Your results</h1>
 
-    <section aria-label="Run summary" class="summary">
-        <p><strong>File:</strong> {{ filename }}</p>
-        <p><strong>Target column:</strong> {{ target_column }}</p>
-        <p><strong>Problem type:</strong> {{ problem_type }}</p>
-    </section>
+    <dl class="summary" aria-label="Run summary">
+        <div class="stat">
+            <dt>File</dt>
+            <dd>{{ filename }}</dd>
+        </div>
+        <div class="stat">
+            <dt>Target column</dt>
+            <dd>{{ target_column }}</dd>
+        </div>
+        <div class="stat">
+            <dt>Problem type</dt>
+            <dd class="stat-type">{{ problem_type }}</dd>
+        </div>
+    </dl>
 
     <ul class="model-list">
         {% for model_name, score in results.items() %}
@@ -22,7 +31,7 @@
                 <span class="model-name">{{ model_name }}</span>
                 <span class="model-score">{{ "%.3f"|format(score) }}</span>
                 <span class="best-label {% if model_name != best_model %}best-label--hidden{% endif %}">
-                    {% if model_name == best_model %}Best Model{% endif %}
+                    {% if model_name == best_model %}Best model{% endif %}
                 </span>
             </li>
         {% endfor %}

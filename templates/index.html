@@ -1,23 +1,42 @@
 {% extends "base.html" %}
+{% set active_page = 'preprocessing' %}
 {% block title %}Upload Dataset{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 {% endblock %}
 {% block content %}
 <section class="hero" aria-label="Upload dataset">
-    <div class="hero-content">
-        <div class="hero-form">
-            <h2>Upload your file</h2>
-            <form action="/uploads/" method="post" enctype="multipart/form-data">
-                <input type="file" name="csv_file" id="csv_file" required>
-                <button type="submit">Upload</button>
-            </form>
-        </div>
-        <div class="hero-description">
-            <p>
-                <strong>AutoML Workbench</strong> takes the repetitive parts of a data scientist's workflow off your hands. Upload any CSV. It automatically detects whether you're solving a classification or regression problem. It performs data preprocessing, model training and compares multiple models so you can focus on interpreting results instead of writing boilerplate.
-            </p>
-        </div>
+    <div class="hero-copy">
+        <h1>Find the best model for your CSV</h1>
+        <p>
+            <strong>AutoML WorkBench</strong> takes the repetitive parts of a data scientist's workflow off your hands. Upload any CSV and it detects whether you're solving a classification or regression problem, preprocesses the data, trains several models and compares them, so you can focus on interpreting results instead of writing boilerplate.
+        </p>
     </div>
+
+    <div class="card upload-card">
+        <h2>Upload your file</h2>
+        <form action="/uploads/" method="post" enctype="multipart/form-data">
+            <input type="file" name="csv_file" id="csv_file" accept=".csv,text/csv" required>
+            <button type="submit">Upload CSV</button>
+        </form>
+    </div>
+</section>
+
+<section class="how" aria-label="How it works">
+    <h2>How it works</h2>
+    <ol class="steps">
+        <li>
+            <h3>Upload</h3>
+            <p>Add any CSV file.</p>
+        </li>
+        <li>
+            <h3>Pick the target</h3>
+            <p>Choose the column you want to predict. The problem type is detected for you.</p>
+        </li>
+        <li>
+            <h3>Compare models</h3>
+            <p>Your data is preprocessed, several models are trained, and their scores are shown side by side.</p>
+        </li>
+    </ol>
 </section>
 {% endblock %}

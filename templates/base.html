@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %} AutoML WorkBench {% endblock %}</title>
+        <title>{% block title %}AutoML WorkBench{% endblock %}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{url_for('static', filename = 'base.css') }}">
-        {% block extra_css %}{% endblock %} 
+        <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+        {% block extra_css %}{% endblock %}
     </head>
     <body>
-        <header>
-            <h1><a href="{{ url_for('index') }}">AutoML WorkBench</a></h1>
+        {# Child pages set {% set active_page = 'preprocessing' %} (or 'ml') to highlight their nav item #}
+        {% set active_page = active_page | default('') %}
+        <header class="site-header">
+            <div class="site-header__inner">
+                <a class="brand" href="{{ url_for('index') }}">AutoML WorkBench</a>
+                <nav aria-label="Main">
+                    <ul class="nav-list">
+                        <li>
+                            <a class="nav-link {% if active_page == 'preprocessing' %}is-active{% endif %}"
+                               href="{{ url_for('index') }}"
+                               {% if active_page == 'preprocessing' %}aria-current="page"{% endif %}>Preprocessing</a>
+                        </li>
+                        <li>
+                            <a class="nav-link {% if active_page == 'ml' %}is-active{% endif %}"
+                               href="{{ url_for('index') }}"
+                               {% if active_page == 'ml' %}aria-current="page"{% endif %}>Machine Learning</a>
+                        </li>
+                        <li>
+                            <span class="nav-link nav-link--soon" aria-disabled="true">
+                                Deep Learning <span class="badge">Coming soon</span>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="nav-link nav-link--soon" aria-disabled="true">
+                                Time Series <span class="badge">Coming soon</span>
+                            </span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </header>
         <main>
             {% block content %}{% endblock %}

@@ -1,20 +1,26 @@
 {% extends "base.html" %}
+{% set active_page = 'preprocessing' %}
+{% block title %}Select Target{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='select_target.css') }}">
 {% endblock %}
 {% block content %}
-<h2>Select the target variable from the dataset columns</h2>
-<!-- this form needs to be sent(POST) to preprocessing -->
-<form action = "/preprocess" method = "post">
-    <!-- storing filename in a hidden input variable to be passed to /preprocess -->
-    <input type = "hidden" name="filename" value ="{{ filename }}">
-    <!-- creating a dropdown -->
-    <select name = "target_column">
-        {% for col in columns %}
-            <option value="{{ col }}"> {{ col }}</option>
-        {% endfor %}
-    </select>
-    <button type = "submit">Confirm Target</button>
-</form>
+<h1>Select the target variable</h1>
+<p class="page-intro">The target is the column your models will learn to predict. Choose it from the columns in your dataset.</p>
+
+<div class="card target-card">
+    <!-- this form needs to be sent(POST) to preprocessing -->
+    <form action="/preprocess" method="post">
+        <!-- storing filename in a hidden input variable to be passed to /preprocess -->
+        <input type="hidden" name="filename" value="{{ filename }}">
+        <label for="target_column">Target column</label>
+        <!-- creating a dropdown -->
+        <select name="target_column" id="target_column">
+            {% for col in columns %}
+                <option value="{{ col }}">{{ col }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Confirm target</button>
+    </form>
+</div>
 {% endblock %}
-    
