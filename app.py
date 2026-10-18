@@ -5,7 +5,7 @@ import uuid
 import pandas as pd
 from werkzeug.utils import secure_filename
 from preprocessing import preprocess_data
-from training import train_models
+from training import train_models, AVAILABLE_MODELS
 from database import create_table, log_run
 
 UPLOAD_FOLDER = 'uploads'
@@ -35,6 +35,12 @@ def cleanup_old_uploads():
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+# Machine Learning page: lists the available models + dataset upload
+@app.route('/machine-learning')
+def machine_learning():
+    return render_template('machine_learning.html', models=AVAILABLE_MODELS)
 
 
 @app.route('/uploads/', methods=['POST'])

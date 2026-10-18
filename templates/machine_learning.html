@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% set active_page = 'ml' %}
+{% block title %}Machine Learning{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='machine_learning.css') }}">
+{% endblock %}
+{% block content %}
+<h1>Machine learning</h1>
+<p class="page-intro">These are the models available right now. Upload a CSV and pick your target column; the problem type is detected for you.</p>
+
+<div class="ml-layout">
+    <div class="model-groups">
+        {% for group, label in [('classification', 'Classification'), ('regression', 'Regression')] %}
+            {% set group_models = models | selectattr('problem_type', 'equalto', group) | list %}
+            {% if group_models %}
+            <section class="model-group" aria-labelledby="group-{{ group }}">
+                <h2 id="group-{{ group }}">{{ label }}</h2>
+                <ul class="available-models">
+                    {% for m in group_models %}
+                        <li>
+                            <span class="available-model-name">{{ m.name }}</span>
+                            {% if m.description %}<span class="available-model-desc">{{ m.description }}</span>{% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            {% endif %}
+        {% else %}
+            <p>No models are available yet.</p>
+        {% endfor %}
+    </div>
+
+    {% set upload_note = 'Your dataset is checked on the next step, where you choose the target column.' %}
+    {% include "_upload_card.html" %}
+</div>
+{% endblock %}

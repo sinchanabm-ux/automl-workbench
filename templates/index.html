@@ -13,13 +13,7 @@
         </p>
     </div>
 
-    <div class="card upload-card">
-        <h2>Upload your file</h2>
-        <form action="/uploads/" method="post" enctype="multipart/form-data">
-            <input type="file" name="csv_file" id="csv_file" accept=".csv,text/csv" required>
-            <button type="submit">Upload CSV</button>
-        </form>
-    </div>
+    {% include "_upload_card.html" %}
 </section>
 
 <section class="how" aria-label="How it works">
