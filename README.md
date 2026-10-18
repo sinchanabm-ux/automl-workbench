@@ -11,7 +11,7 @@ Built as a solo project to go deeper than a single "train one model on one datas
 ![Screenshot of the upload page showing a file picker and upload button](screenshots/upload-page.png)
 **Upload page**
 
-![Screenshot of the select target page with a dropdown](screenshots\\/select-target-page.png)
+![Screenshot of the select target page with a dropdown](screenshots/select-target-page.png)
 **Select target page**
 
 ![Screenshot of the results page with dataset name, target column, problem type, model score with the best one highlighted](screenshots/results-page.png)
