@@ -6,7 +6,7 @@
 }
 
 .model-group + .model-group {
-    margin-top: 2rem;
+    margin-top: 1.25rem;
 }
 
 .available-models {
@@ -15,14 +15,14 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.7rem;
+    gap: 0.5rem;
 }
 
 .available-models li {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
-    padding: 0.9rem 1.25rem;
+    padding: 0.65rem 1.1rem;
     border: 1px solid var(--color-line-dark);
     border-radius: 12px;
     background: rgba(255, 255, 255, 0.08);
@@ -52,4 +52,45 @@
 @media (max-width: 800px) {
     .ml-layout { grid-template-columns: 1fr; gap: 2rem; }
     .upload-card { position: static; order: -1; }
+}
+
+/* machine learning page: keep header, content and footer on one screen.
+   If there are many models, the model list scrolls inside its own panel. */
+.page-ml main {
+    padding-top: 1.25rem;
+    padding-bottom: 1rem;
+}
+
+.page-ml h1 {
+    font-size: 2.2rem;
+    margin-bottom: 0.4rem;
+}
+
+.page-ml .page-intro {
+    margin-bottom: 1rem;
+}
+
+.page-ml .model-group h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+}
+
+.page-ml footer {
+    padding: 0.9rem;
+}
+
+@media (min-width: 801px) {
+    .model-groups {
+        max-height: calc(100vh - 19rem);
+        min-height: 12rem;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.4) transparent;
+    }
+
+    .model-groups:focus-visible {
+        outline: 3px solid #FFFFFF;
+        outline-offset: 4px;
+    }
 }

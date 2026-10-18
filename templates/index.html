@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% set active_page = 'preprocessing' %}
 {% block title %}Upload Dataset{% endblock %}
+{% block body_class %}page-index{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 {% endblock %}
@@ -25,11 +26,11 @@
         </li>
         <li>
             <h3>Pick the target</h3>
-            <p>Choose the column you want to predict. The problem type is detected for you.</p>
+            <p>Choose the column to predict. We detect the problem type.</p>
         </li>
         <li>
             <h3>Compare models</h3>
-            <p>Your data is preprocessed, several models are trained, and their scores are shown side by side.</p>
+            <p>Models are trained on your data and scored side by side.</p>
         </li>
     </ol>
 </section>

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
         {% block extra_css %}{% endblock %}
     </head>
-    <body>
+    <body class="{% block body_class %}{% endblock %}">
         {# Child pages set {% set active_page = 'preprocessing' %} (or 'ml') to highlight their nav item #}
         {% set active_page = active_page | default('') %}
         <header class="site-header">

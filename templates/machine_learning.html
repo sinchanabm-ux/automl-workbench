@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% set active_page = 'ml' %}
 {% block title %}Machine Learning{% endblock %}
+{% block body_class %}page-ml{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='machine_learning.css') }}">
@@ -10,7 +11,7 @@
 <p class="page-intro">These are the models available right now. Upload a CSV and pick your target column; the problem type is detected for you.</p>
 
 <div class="ml-layout">
-    <div class="model-groups">
+    <div class="model-groups" tabindex="0" role="region" aria-label="Available models">
         {% for group, label in [('classification', 'Classification'), ('regression', 'Regression')] %}
             {% set group_models = models | selectattr('problem_type', 'equalto', group) | list %}
             {% if group_models %}
