@@ -1,26 +1,91 @@
 {% extends "base.html" %}
 {% set active_page = 'preprocessing' %}
-{% block title %}Select Target{% endblock %}
+{% block title %}Dataset Ready{% endblock %}
+{% block body_class %}page-target{% endblock %}
 {% block extra_css %}
     <link rel="stylesheet" href="{{ url_for('static', filename='select_target.css') }}">
 {% endblock %}
 {% block content %}
-<h1>Select the target variable</h1>
-<p class="page-intro">The target is the column your models will learn to predict. Choose it from the columns in your dataset.</p>
 
-<div class="card target-card">
-    <!-- this form needs to be sent(POST) to preprocessing -->
-    <form action="/preprocess" method="post">
-        <!-- storing filename in a hidden input variable to be passed to /preprocess -->
-        <input type="hidden" name="filename" value="{{ filename }}">
-        <label for="target_column">Target column</label>
-        <!-- creating a dropdown -->
-        <select name="target_column" id="target_column">
-            {% for col in columns %}
-                <option value="{{ col }}">{{ col }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Confirm target</button>
-    </form>
+{% if report.changes_made %}
+    <h1>Your dataset was cleaned</h1>
+    <p class="page-intro">We cleaned <strong>{{ display_name }}</strong>. Here's what changed.</p>
+
+    <dl class="report" aria-label="Cleaning summary">
+        <div class="report-stat">
+            <dt>Rows</dt>
+            <dd>{{ "{:,}".format(report.rows_before) }} → {{ "{:,}".format(report.rows_after) }}</dd>
+        </div>
+        <div class="report-stat">
+            <dt>Columns</dt>
+            <dd>{{ report.columns_before }} → {{ report.columns_after }}</dd>
+        </div>
+        <div class="report-stat">
+            <dt>Duplicates removed</dt>
+            <dd>{{ "{:,}".format(report.duplicates_removed) }}</dd>
+        </div>
+        <div class="report-stat">
+            <dt>Missing values filled</dt>
+            <dd>{{ "{:,}".format(report.missing_filled) }}</dd>
+        </div>
+    </dl>
+
+    {% if report.dropped_columns or report.filled_by_column %}
+    <details class="report-details">
+        <summary>See what changed</summary>
+        <div class="report-details__body">
+            {% if report.dropped_columns %}
+                <h3>Columns dropped</h3>
+                <ul class="chips">
+                    {% for col in report.dropped_columns %}<li>{{ col }}</li>{% endfor %}
+                </ul>
+            {% endif %}
+            {% if report.filled_by_column %}
+                <h3>Missing values filled</h3>
+                <ul class="fill-list">
+                    {% for col, count in report.filled_by_column.items() %}
+                        <li><span>{{ col }}</span><span>{{ count }}</span></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </details>
+    {% endif %}
+{% else %}
+    <h1>Your dataset was already clean</h1>
+    <p class="page-intro">We didn't need to change anything in <strong>{{ display_name }}</strong>.</p>
+{% endif %}
+
+<div class="choices">
+
+    <!-- Option 1: download the cleaned dataset -->
+    <section class="card choice-card" aria-labelledby="download-heading">
+        <h2 id="download-heading">Download the cleaned dataset</h2>
+        <p class="choice-text">
+            {% if report.changes_made %}The dataset is cleaned and ready to download.{% else %}No changes were needed, but you can still download it.{% endif %}
+        </p>
+        <a class="button-link" href="{{ url_for('download_cleaned', stored_name=filename) }}" download>Download cleaned CSV</a>
+    </section>
+
+    <span class="or-divider" aria-hidden="true">or</span>
+
+    <!-- Option 2: pick a target and train. This form is sent (POST) to preprocessing -->
+    <section class="card choice-card" aria-labelledby="target-heading">
+        <h2 id="target-heading">Train a model</h2>
+        <p class="choice-text">Select a target so you can train a machine learning model on it.</p>
+        <form action="/preprocess" method="post">
+            <!-- storing the stored filename in a hidden input to be passed to /preprocess -->
+            <input type="hidden" name="filename" value="{{ filename }}">
+            <label for="target_column">Target column</label>
+            <!-- creating a dropdown -->
+            <select name="target_column" id="target_column">
+                {% for col in columns %}
+                    <option value="{{ col }}">{{ col }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Confirm target</button>
+        </form>
+    </section>
+
 </div>
 {% endblock %}

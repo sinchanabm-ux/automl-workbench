@@ -90,3 +90,11 @@
     .best-label { grid-column: 1 / -1; justify-self: start; }
     .best-label--hidden { display: none; }
 }
+
+.results-actions {
+    margin-top: 1.5rem;
+}
+
+.button-link--inline {
+    display: inline-block;
+}

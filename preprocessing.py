@@ -72,3 +72,61 @@ def preprocess_data(df, target_column):
 
 
     return X, y, problem_type, None
+
+
+# ---------------------------------------------------------------------------
+# Cleaning for the downloadable CSV (independent of any target column)
+# ---------------------------------------------------------------------------
+HIGH_MISSING_RATIO = 0.8   # same threshold preprocess_data() uses
+
+def clean_data(df):
+    """Clean a dataset for download. Returns (cleaned_df, report).
+
+    Rules (kept human-readable: no one-hot encoding, no scaling):
+      1. remove exact duplicate rows
+      2. drop columns where 80% or more of the values are missing
+      3. fill remaining missing values: median for numbers, most frequent value otherwise
+    Raises ValueError if nothing usable is left.
+    """
+    rows_before, cols_before = df.shape
+    cleaned = df.drop_duplicates()
+    duplicates_removed = rows_before - len(cleaned)
+
+    if len(cleaned) == 0:
+        raise ValueError("The dataset has no rows.")
+
+    missing_ratio = cleaned.isnull().mean()
+    dropped_columns = missing_ratio[missing_ratio >= HIGH_MISSING_RATIO].index.to_list()
+    cleaned = cleaned.drop(columns=dropped_columns)
+
+    if cleaned.shape[1] == 0:
+        raise ValueError("No usable columns remain: too many values are missing.")
+
+    filled_by_column = {}
+    for col in cleaned.columns:
+        n_missing = int(cleaned[col].isnull().sum())
+        if n_missing == 0:
+            continue
+        if pd.api.types.is_numeric_dtype(cleaned[col]) and cleaned[col].dtype != 'bool':
+            fill_value = cleaned[col].median()
+        else:
+            mode = cleaned[col].mode()
+            if mode.empty:
+                continue
+            fill_value = mode[0]
+        cleaned[col] = cleaned[col].fillna(fill_value)
+        filled_by_column[col] = n_missing
+
+    missing_filled = sum(filled_by_column.values())
+    report = {
+        "rows_before": rows_before,
+        "rows_after": len(cleaned),
+        "columns_before": cols_before,
+        "columns_after": cleaned.shape[1],
+        "duplicates_removed": duplicates_removed,
+        "dropped_columns": dropped_columns,
+        "missing_filled": missing_filled,
+        "filled_by_column": filled_by_column,
+        "changes_made": bool(duplicates_removed or dropped_columns or missing_filled),
+    }
+    return cleaned, report

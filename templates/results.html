@@ -37,4 +37,10 @@
         {% endfor %}
     </ul>
 
+    {% if stored_name %}
+    <div class="results-actions">
+        <a class="button-link button-link--inline" href="{{ url_for('download_cleaned', stored_name=stored_name) }}" download>Download cleaned CSV</a>
+    </div>
+    {% endif %}
+
 {% endblock %}

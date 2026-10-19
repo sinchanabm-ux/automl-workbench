@@ -209,6 +209,28 @@ button:focus-visible {
     outline-offset: 2px;
 }
 
+/* link that looks like the shared button */
+.button-link {
+    display: block;
+    text-align: center;
+    background-color: var(--color-accent);
+    color: white;
+    border-radius: 999px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+}
+
+.button-link:hover {
+    background-color: var(--color-accent-dark);
+    color: white;
+}
+
+.button-link:focus-visible {
+    outline: 3px solid var(--color-navy);
+    outline-offset: 2px;
+}
+
 a {
     text-decoration: none;
     color: #FFFFFF;
