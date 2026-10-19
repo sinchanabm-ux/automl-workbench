@@ -19,13 +19,12 @@ create_table()
 
 
 def cleanup_old_uploads():
-    """Delete uploads that were never finished (user left before training)."""
+    #Delete uploads that were never finished (user left before training).
     now = time.time()
     for name in os.listdir(UPLOAD_FOLDER):
         path = os.path.join(UPLOAD_FOLDER, name)
         try:
-            if (os.path.isfile(path) and name != '.gitkeep'
-                    and now - os.path.getmtime(path) > MAX_AGE_SECONDS):
+            if (os.path.isfile(path) and name != '.gitkeep' and now - os.path.getmtime(path) > MAX_AGE_SECONDS):
                 os.remove(path)
         except OSError:
             pass
