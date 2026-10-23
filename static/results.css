@@ -93,6 +93,9 @@
 
 .results-actions {
     margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .button-link--inline {
