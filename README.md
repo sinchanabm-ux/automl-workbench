@@ -14,7 +14,7 @@ Built as a solo project to go deeper than a single "train one model on one datas
 ![Screenshot of the select target page with a dropdown](screenshots/select-target-page.png)
 **Select target page**
 
-![Screenshot of the results page with dataset name, target column, problem type, model score with the best one highlighted](screenshots/results-page.png)
+![Screenshot of the results page with dataset name, target column, problem type, model score with the best one highlighted](screenshots/result-page.png)
 **Results page**
 
 ## How it works
@@ -79,7 +79,7 @@ Then visit `http://127.0.0.1:5000` in your browser.
 
 ## Roadmap for Enhancements
 
-- [ ] Standalone "clean my dataset" mode : download the cleaned CSV without training a model, with a before/after summary report of what was changed
+- [x] Standalone "clean my dataset" mode : download the cleaned CSV without training a model, with a before/after summary report of what was changed (20/10/2026)
 - [ ] Let users choose preprocessing strategies (e.g. median vs. drop-rows for missing values, one-hot vs. label encoding)
 - [ ] Migrate from Flask to Django
 - [ ] Move from SQLite to a persistent hosted database (e.g. PostgreSQL) for reliable run history in production
